@@ -853,8 +853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe07404bfb01ce42b60de1a8a4ba6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boid: {fileID: 1954729727205855777, guid: 731b0de4ba2239d45b030b4025c70fa1, type: 3}
-  hai: {fileID: 919796400501263300, guid: d2323f569301c0b42830eb57b0c9af9e, type: 3}
+  boid: {fileID: 3967134860485023809, guid: a96fb5187d12bba4dadefdac53bfc4a1, type: 3}
+  hai: {fileID: 5540921649409512930, guid: d2323f569301c0b42830eb57b0c9af9e, type: 3}
 --- !u!4 &2115143808
 Transform:
   m_ObjectHideFlags: 0
