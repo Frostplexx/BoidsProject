@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Kamera : MonoBehaviour
+public class Camera : MonoBehaviour
 {
     
     private float sens = 250f;
@@ -36,7 +36,10 @@ public class Kamera : MonoBehaviour
             distance = distance - Input.mouseScrollDelta.y;
         }
 
+        // Locks Camera between 40 and 500
         distance = Mathf.Clamp(distance, 40, 500);
+
+
 
     }
 
