@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class BoidsErschaffen : MonoBehaviour
@@ -12,6 +13,8 @@ public class BoidsErschaffen : MonoBehaviour
     public static int raumGroesse = 100;
     //Meinge an Boids
     static int boidNummer = 500;
+
+    public GameObject player;
 
     static int haiNummer = 1;
     //Menge an boids als array
@@ -41,7 +44,7 @@ public class BoidsErschaffen : MonoBehaviour
     {
         if (Random.Range(0, 2000) < 50) {
 
-            ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
+            ziel = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
 
         }
