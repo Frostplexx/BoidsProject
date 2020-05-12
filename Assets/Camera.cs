@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Camera : MonoBehaviour
@@ -17,6 +16,7 @@ public class Camera : MonoBehaviour
     public Camera cam;
 
 <<<<<<< HEAD:Assets/Camera.cs
+<<<<<<< HEAD:Assets/Camera.cs
 <<<<<<< HEAD:Assets/_Scripts/Camera.cs
     CharacterController characterController;
 
@@ -24,6 +24,8 @@ public class Camera : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
 
+=======
+>>>>>>> parent of c72d907... movement:Assets/_Scripts/Camera.cs
     public DepthTextureMode depthTextureMode { get; internal set; }
 =======
 >>>>>>> parent of a5a2a17... Added Underwater effect:Assets/Camera.cs
@@ -36,8 +38,6 @@ public class Camera : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
-        //holt sie die characterController eigenschaften
-        characterController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -57,10 +57,6 @@ public class Camera : MonoBehaviour
 
 
 
-
-
-
-
     }
 
     void LateUpdate()
@@ -72,24 +68,5 @@ public class Camera : MonoBehaviour
 
            // Camera den Player anvisieren lassen
            camTransform.LookAt(player.position);
-
-
-        //Movement
-        if (Input.GetKey(KeyCode.W))
-        {
-            player.transform.Translate(new Vector3(transform.forward.x, 0, transform.forward.z)); 
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            player.transform.Translate(new Vector3(-transform.forward.x, 0, -transform.forward.z));
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            player.transform.Translate(new Vector3(0, -transform.forward.y, 0));
-        }
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            player.transform.Translate(new Vector3(0, transform.forward.y, 0));
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class BoidsErschaffen : MonoBehaviour
@@ -13,17 +14,23 @@ public class BoidsErschaffen : MonoBehaviour
     //Meinge an Boids
     static int boidNummer = 500;
 
+    public GameObject player;
+
     static int haiNummer = 1;
     //Menge an boids als array
     public static GameObject[] alleBoids = new GameObject[boidNummer];
 
     public static GameObject[] alleHaie = new GameObject[haiNummer];
     //Ziel für die boids
+<<<<<<< HEAD:Assets/BoidsErschaffen.cs
 <<<<<<< HEAD
     public static Vector3 ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse)); 
 =======
     public static Vector3 ziel = Vector3.zero; 
 >>>>>>> parent of a5a2a17... Added Underwater effect
+=======
+    public static Vector3 ziel = Vector3.zero; 
+>>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidsErschaffen.cs
     void Start()
     {
     	//erzeugt vorgegebene menge an boids
@@ -45,7 +52,7 @@ public class BoidsErschaffen : MonoBehaviour
     {
         if (Random.Range(0, 2000) < 50) {
 
-            ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
+            ziel = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 
 
         }
