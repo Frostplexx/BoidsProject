@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Camera : MonoBehaviour
@@ -15,6 +16,12 @@ public class Camera : MonoBehaviour
     public Transform camTransform;
     public Camera cam;
 
+    CharacterController characterController;
+
+    public float speed = 0.1f;
+
+    private Vector3 moveDirection = Vector3.zero;
+
     public DepthTextureMode depthTextureMode { get; internal set; }
 
     void Start()
@@ -23,6 +30,8 @@ public class Camera : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
+        //holt sie die characterController eigenschaften
+        characterController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -42,6 +51,10 @@ public class Camera : MonoBehaviour
 
 
 
+
+
+
+
     }
 
     void LateUpdate()
@@ -53,5 +66,24 @@ public class Camera : MonoBehaviour
 
            // Camera den Player anvisieren lassen
            camTransform.LookAt(player.position);
+
+
+        //Movement
+        if (Input.GetKey(KeyCode.W))
+        {
+            player.transform.Translate(new Vector3(transform.forward.x, 0, transform.forward.z)); 
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            player.transform.Translate(new Vector3(-transform.forward.x, 0, -transform.forward.z));
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            player.transform.Translate(new Vector3(0, -transform.forward.y, 0));
+        }
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            player.transform.Translate(new Vector3(0, transform.forward.y, 0));
+        }
     }
 }
