@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class Player : MonoBehaviour
 {
     
-   // private float sens = 250f;
+    private float sens = 2f;
     private float distance = 40f;
 
     public static float speed = 1f;
@@ -48,8 +48,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Mausposition definieren und Y Achse bei fast 90 Grad sperren um eine Komplette Umdrehung der Y Achse zu verhindern
-        mouseX += Input.GetAxis("Mouse X");
-        mouseY += Input.GetAxis("Mouse Y");
+        mouseX += Input.GetAxis("Mouse X") * sens;
+        mouseY += -Input.GetAxis("Mouse Y") * sens;
         mouseY = Mathf.Clamp(mouseY, -89, 89);
         
         // MouseScrollDelta ist scrollwheel. Aendert Distanz von Kamera zu player relativ zu scrollen. ScrollUP = naeher ScrollDOWN = weiter weg
