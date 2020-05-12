@@ -29,8 +29,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - <noninit>: 0
-    - _Intensity: 20
-    - _Speed: 0
+    - _Intensity: 6
+    - _Speed: 0.5
     m_Colors:
     - <noninit>: {r: 0, g: 2.0183642, b: 1e-45, a: -1.6493598e+13}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5990566, g: 0.9311391, b: 1, a: 1}

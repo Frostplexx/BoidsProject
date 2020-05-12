@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
+using TreeEditor;
 using UnityEditor;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
@@ -10,7 +12,7 @@ public class Player : MonoBehaviour
 {
     
    // private float sens = 250f;
-    private float distance = 100f;
+    private float distance = 40f;
 
     public static float speed = 1f;
     public static int dashMultiplier = 2;
@@ -58,8 +60,8 @@ public class Player : MonoBehaviour
         // Locks Camera between 40 and 500
         distance = Mathf.Clamp(distance, 40, 500);
 
-
-
+        //player rotiert sich immer von der Kamera weg
+        player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f); 
 
 
 
@@ -76,7 +78,6 @@ public class Player : MonoBehaviour
            // Camera den Player anvisieren lassen
            camTransform.LookAt(player.position);
 
-        player.Rotate(new Vector3(-camTransform.forward.x, -camTransform.forward.y, -camTransform.forward.z)); 
     }
 
     private void FixedUpdate()
