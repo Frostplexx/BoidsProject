@@ -12,22 +12,27 @@ public class BoidsErschaffen : MonoBehaviour
     //Spawnradius 
     public static int raumGroesse = 100;
     //Meinge an Boids
-    static int boidNummer = 500;
-
-    public GameObject player;
+    static int boidNummer = 10;
 
     static int haiNummer = 1;
-    //Menge an boids als array
-    public static GameObject[] alleBoids = new GameObject[boidNummer];
 
-    public static GameObject[] alleHaie = new GameObject[haiNummer];
+    //Menge an boids als array
+    public static List<GameObject> alleBoids = new List<GameObject>();
+
+    public static List<GameObject> alleHaie = new List<GameObject>();
+
+    public int remBoids = 0;
+
+    public int addBoids = 0; 
+
     //Ziel für die boids
-   // public static Vector3 ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse)); 
+   
     public static Vector3 ziel = Vector3.zero; 
     void Start()
     {
     	//erzeugt vorgegebene menge an boids
         for (int i = 0; i < boidNummer; i++) {
+            alleBoids.Add(boid); 
             //boid wird zufällig innerhalb einer Kugel erschaffen
             Vector3 pos = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
             alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity); 
@@ -49,5 +54,27 @@ public class BoidsErschaffen : MonoBehaviour
 
 
         }
+
+  
     }
+
+    private void LateUpdate()
+    {
+        if (remBoids > 0)
+        {
+
+            BoidsErschaffen.Destroy(alleBoids[0]);
+            alleBoids.RemoveAt(0);
+            remBoids--;
+
+        }
+        else if (addBoids > 0)
+        {
+            alleBoids.Add(boid);
+            BoidsErschaffen.Instantiate(boid);
+            addBoids--;
+
+        }
+    } 
+
 }

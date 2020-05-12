@@ -33,10 +33,10 @@ public class HaiKI : MonoBehaviour
 
     void HaiRegel(){
 
-        GameObject[] haiGruppe; 
+        List<GameObject> haiGruppe; 
         haiGruppe = BoidsErschaffen.alleHaie;
 
-        GameObject[] boidGruppe;
+        List<GameObject> boidGruppe;
         boidGruppe = BoidsErschaffen.alleBoids;
 
         foreach(GameObject boid in boidGruppe){

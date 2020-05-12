@@ -59,10 +59,10 @@ public class BoidKI : MonoBehaviour
     void Regeln()
     {
         //boids array vom boidsErschaffen script geholt
-        GameObject[] boidGruppe;
+        List<GameObject> boidGruppe;
         boidGruppe = BoidsErschaffen.alleBoids;
 
-        GameObject[] haiGruppe; 
+        List<GameObject> haiGruppe; 
         haiGruppe = BoidsErschaffen.alleHaie;
 
         //MItte der Gruppe
