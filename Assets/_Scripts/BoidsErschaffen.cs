@@ -22,15 +22,8 @@ public class BoidsErschaffen : MonoBehaviour
 
     public static GameObject[] alleHaie = new GameObject[haiNummer];
     //Ziel für die boids
-<<<<<<< HEAD:Assets/BoidsErschaffen.cs
-<<<<<<< HEAD
-    public static Vector3 ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse)); 
-=======
+   // public static Vector3 ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse)); 
     public static Vector3 ziel = Vector3.zero; 
->>>>>>> parent of a5a2a17... Added Underwater effect
-=======
-    public static Vector3 ziel = Vector3.zero; 
->>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidsErschaffen.cs
     void Start()
     {
     	//erzeugt vorgegebene menge an boids

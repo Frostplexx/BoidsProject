@@ -15,22 +15,13 @@ public class Camera : MonoBehaviour
     public Transform camTransform;
     public Camera cam;
 
-<<<<<<< HEAD:Assets/Camera.cs
-<<<<<<< HEAD:Assets/Camera.cs
-<<<<<<< HEAD:Assets/_Scripts/Camera.cs
     CharacterController characterController;
 
     public float speed = 0.1f;
 
     private Vector3 moveDirection = Vector3.zero;
 
-=======
->>>>>>> parent of c72d907... movement:Assets/_Scripts/Camera.cs
     public DepthTextureMode depthTextureMode { get; internal set; }
-=======
->>>>>>> parent of a5a2a17... Added Underwater effect:Assets/Camera.cs
-=======
->>>>>>> parent of a5a2a17... Added Underwater effect:Assets/_Scripts/Camera.cs
 
     void Start()
     {

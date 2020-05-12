@@ -31,12 +31,6 @@ public class BoidKI : MonoBehaviour
         if(drehen){
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ausweichen - transform.position), rotGeschw * Time.deltaTime);
             geschwindigkeit = Random.Range(15f,30f);
-<<<<<<< HEAD:Assets/BoidKI.cs
-<<<<<<< HEAD
-        }
-=======
-=======
->>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidKI.cs
         } else {
     
 
@@ -47,30 +41,16 @@ public class BoidKI : MonoBehaviour
             geschwindigkeit = Random.Range(15f,30f);
 
         } else{ 
-<<<<<<< HEAD:Assets/BoidKI.cs
->>>>>>> parent of a5a2a17... Added Underwater effect
-=======
->>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidKI.cs
             //ansonsten werden die regeln angewandt
             //sie werden nur etwa 1 in 4 frames berechnet um die perfomance zu steigern
             if(Random.Range(0,4) < 1){
             Regeln();
             }
     
-<<<<<<< HEAD:Assets/BoidKI.cs
-<<<<<<< HEAD
-        
-=======
-=======
->>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidKI.cs
         }
           
             
         }
-<<<<<<< HEAD:Assets/BoidKI.cs
->>>>>>> parent of a5a2a17... Added Underwater effect
-=======
->>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidKI.cs
         //boids bewegen sich forwärts; die geschwindigkeit errechnet sich aus einem Basiswert * geschwindigkeit
         transform.Translate(0, 0, Time.deltaTime * geschwindigkeit);
     }
@@ -110,15 +90,6 @@ public class BoidKI : MonoBehaviour
                     gruppeMitte += boid.transform.position;
                     //du wirst zur gruppenGröße gezählt
                     gruppeGroesse++;
-<<<<<<< HEAD:Assets/BoidKI.cs
-<<<<<<< HEAD
-                    //geschwindigkeit der Gruppe wird errechnet
-=======
-                    //geschwindigkeit der ruppe wird errechnet
->>>>>>> parent of a5a2a17... Added Underwater effect
-=======
-                    //geschwindigkeit der ruppe wird errechnet
->>>>>>> parent of c72d907... movement:Assets/_Scripts/BoidKI.cs
                     BoidKI gruppe = boid.GetComponent<BoidKI>();
                     gruppeGeschw = gruppeGeschw + gruppe.geschwindigkeit;
                 //wenn sie sich zu nahe kommen
