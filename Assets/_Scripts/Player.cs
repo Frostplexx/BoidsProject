@@ -4,8 +4,9 @@ using System.Threading;
 using UnityEditor;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Camera : MonoBehaviour
+public class Player : MonoBehaviour
 {
     
    // private float sens = 250f;
@@ -37,8 +38,8 @@ public class Camera : MonoBehaviour
     void Start()
     {
         // Damit der Cursor nicht sichtbar ist und sich nicht bewegt
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
     }
 
@@ -57,9 +58,11 @@ public class Camera : MonoBehaviour
         // Locks Camera between 40 and 500
         distance = Mathf.Clamp(distance, 40, 500);
 
-        
 
-        
+
+
+
+
 
     }
 
@@ -72,6 +75,8 @@ public class Camera : MonoBehaviour
 
            // Camera den Player anvisieren lassen
            camTransform.LookAt(player.position);
+
+        player.Rotate(new Vector3(-camTransform.forward.x, -camTransform.forward.y, -camTransform.forward.z)); 
     }
 
     private void FixedUpdate()
