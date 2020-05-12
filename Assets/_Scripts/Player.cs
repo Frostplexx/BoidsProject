@@ -6,12 +6,13 @@ using TreeEditor;
 using UnityEditor;
 using UnityEditor.U2D.Sprites;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    
-    private float sens = 2f;
+
+    public float sens = 1f; 
     private float distance = 40f;
 
     public static float speed = 1f;
