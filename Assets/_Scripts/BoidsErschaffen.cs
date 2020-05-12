@@ -45,7 +45,7 @@ public class BoidsErschaffen : MonoBehaviour
     {
         if (Random.Range(0, 2000) < 50) {
 
-            ziel = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+            ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
 
 
         }
