@@ -31,12 +31,15 @@ public class Player : MonoBehaviour
     Camera cam;
 
     public static int dashdur = 10; 
-    private int dash = dashdur;
+    private int dash = dashdur; 
 
     // health stuff here
     
     static int maxHealth = 100;
     int health;
+
+    int dmgotTime;
+    int dmgotDamage;
 
     // stamina stuff here
 
@@ -86,7 +89,7 @@ public class Player : MonoBehaviour
 
     public void LateUpdate()
     {
-        // Camera hinter den Player (unsichtbares Objekt, dem die Boids folgen) setzen
+        // Camera hinter den Player setzen
         Vector3 dir = new Vector3(0, 0, -distance);
            Quaternion rotation = Quaternion.Euler(mouseY, mouseX, 0);
            camTransform.position = player.position + rotation * dir;
@@ -98,7 +101,7 @@ public class Player : MonoBehaviour
 
     public void FixedUpdate()
     {
-        //Movement
+        // Movement
         if (Input.GetKey(KeyCode.W))
         {
             player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
@@ -124,8 +127,7 @@ public class Player : MonoBehaviour
             player.transform.Translate(0, -transform.forward.y * speed, 0);
         }
 
-        //Dash :)
-
+        // Dash :)
         if (Input.GetKey(KeyCode.LeftShift) && canDash == true)
         {
             if (dash >= 0)
@@ -151,6 +153,17 @@ public class Player : MonoBehaviour
             canDash = true;
         }
 
-
+        // Damage over time
+        if(dmgotTime > 0)
+        {
+            health = health - dmgotDamage;
+            dmgotTime--;
+        }
     }
+
+    void takeDmg(int damage)
+    {
+        health = health - damage;
+    }
+
 }
