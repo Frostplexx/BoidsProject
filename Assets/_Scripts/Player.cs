@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public float sens = 1f; 
     private float distance = 40f;
 
-    public static float speed = 1f;
+    public static float speed = 10f;
     public static int dashMultiplier = 2;
 
     private float dashspeed = speed * dashMultiplier;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private float mouseX;
     private float mouseY;
 
-    public Transform player;
+    public Rigidbody player;
     Transform camTransform;
     Camera cam;
 
@@ -104,27 +104,33 @@ public class Player : MonoBehaviour
         // Movement
         if (Input.GetKey(KeyCode.W))
         {
-            player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
+            //player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
+            player.AddForce(transform.forward.x * speed, 0, transform.forward.z * speed); 
         }
         if (Input.GetKey(KeyCode.S))
         {
-            player.transform.Translate(-transform.forward.x * speed, 0, -transform.forward.z * speed);
+            //player.transform.Translate(-transform.forward.x * speed, 0, -transform.forward.z * speed);
+            player.AddForce(-transform.forward.x * speed, 0, -transform.forward.z * speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            player.transform.Translate(-transform.forward.z * speed, 0, 0);
+            //player.transform.Translate(-transform.forward.z * speed, 0, 0);
+            player.AddForce(-transform.forward.z * speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            player.transform.Translate(transform.forward.z * speed, 0, 0 );
+            //player.transform.Translate(transform.forward.z * speed, 0, 0 );
+            player.AddForce(transform.forward.z * speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            player.transform.Translate(0, transform.forward.y * speed, 0);
+            //player.transform.Translate(0, transform.forward.y * speed, 0);
+            player.AddForce(0, transform.forward.y * speed * 2, 0);
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            player.transform.Translate(0, -transform.forward.y * speed, 0);
+            //player.transform.Translate(0, -transform.forward.y * speed, 0);
+            player.AddForce(0, -transform.forward.y * speed * 2, 0);
         }
 
         // Dash :)
@@ -137,7 +143,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                speed = 1f;
+                speed = 10f;
             }
 
 
@@ -145,7 +151,7 @@ public class Player : MonoBehaviour
         else if (dash < dashdur && !Input.GetKey(KeyCode.LeftShift))
         {
             canDash = false;
-            speed = 1f;
+            speed = 10f;
             dash = (int) Mathf.Floor(Time.time * 10) * 1;
                 dash++;
         }
