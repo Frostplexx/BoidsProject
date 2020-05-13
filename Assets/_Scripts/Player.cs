@@ -8,6 +8,7 @@ using UnityEditor.U2D.Sprites;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +31,10 @@ public class Player : MonoBehaviour
     Camera cam;
 
     public static int dashdur = 10; 
-    private int dash = dashdur; 
+    private int dash = dashdur;
+
+    int health = 100;
+    //health stuff here
 
     CharacterController characterController;
 
@@ -38,7 +42,7 @@ public class Player : MonoBehaviour
 
     public DepthTextureMode depthTextureMode { get; internal set; }
 
-    void Start()
+    public void Start()
     {
         // Damit der Cursor nicht sichtbar ist und sich nicht bewegt
         UnityEngine.Cursor.visible = false;
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
         camTransform = transform;
     }
 
-    void Update()
+    public void Update()
     {
         // Mausposition definieren und Y Achse bei fast 90 Grad sperren um eine Komplette Umdrehung der Y Achse zu verhindern
         mouseX += Input.GetAxis("Mouse X") * sens;
@@ -62,14 +66,13 @@ public class Player : MonoBehaviour
         distance = Mathf.Clamp(distance, 40, 500);
 
         //player rotiert sich immer von der Kamera weg
-        player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f); 
+        player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f);
 
-
-
+        // reserved for hp
 
     }
 
-    void LateUpdate()
+    public void LateUpdate()
     {
         // Camera hinter den Player (unsichtbares Objekt, dem die Boids folgen) setzen
         Vector3 dir = new Vector3(0, 0, -distance);
@@ -81,7 +84,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         //Movement
         if (Input.GetKey(KeyCode.W))
@@ -120,7 +123,6 @@ public class Player : MonoBehaviour
             }
             else
             {
-
                 speed = 1f;
             }
 
@@ -132,13 +134,9 @@ public class Player : MonoBehaviour
             speed = 1f;
             dash = (int) Mathf.Floor(Time.time * 10) * 1;
                 dash++;
-            
-
         }
         else if (dash == dashdur) {
-
             canDash = true;
-        
         }
 
 
