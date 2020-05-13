@@ -35,14 +35,18 @@ public class Player : MonoBehaviour
 
     // health stuff here
     
-    int maxHealth = 100;
+    static int maxHealth = 100;
     int health;
 
     // stamina stuff here
 
-    int maxStamina = 100;
+    static int maxStamina = 100;
     int stamina;
 
+    // hunger stuff here
+
+    static int maxHunger = 100;
+    int hunger;
 
     CharacterController characterController;
 
