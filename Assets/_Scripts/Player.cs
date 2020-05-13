@@ -137,32 +137,33 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             //player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
-            player.AddForce(transform.forward.x * speed, 0, transform.forward.z * speed); 
+            player.AddForce(player.transform.forward.x * speed, 0, player.transform.forward.z * speed); 
         }
         if (Input.GetKey(KeyCode.S))
         {
             //player.transform.Translate(-transform.forward.x * speed, 0, -transform.forward.z * speed);
-            player.AddForce(-transform.forward.x * speed, 0, -transform.forward.z * speed);
+            player.AddForce(-player.transform.forward.x * speed, 0, -player.transform.forward.z * speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
             //player.transform.Translate(-transform.forward.z * speed, 0, 0);
-            player.AddForce(-transform.forward.z * speed, 0, 0);
+            player.AddForce(-player.transform.forward.z * speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
             //player.transform.Translate(transform.forward.z * speed, 0, 0 );
-            player.AddForce(transform.forward.z * speed, 0, 0);
+            player.AddForce(player.transform.forward.z * speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
             //player.transform.Translate(0, transform.forward.y * speed, 0);
-            player.AddForce(0, transform.forward.y * speed * 2, 0);
+            player.AddForce(0, camTransform.transform.forward.y * speed * 2, 0);
         }
         if (Input.GetKey(KeyCode.Space))
         {
             //player.transform.Translate(0, -transform.forward.y * speed, 0);
-            player.AddForce(0, -transform.forward.y * speed * 2, 0);
+            player.AddForce(0, -camTransform.transform.forward.y * speed * 2, 0);
+            player.AddRelativeTorque(new Vector3(0, 100, 0)); 
         }
 
         // Dash :)
