@@ -42,10 +42,16 @@ public class Player : MonoBehaviour
 
 
 
+    // import sliders script functions
+    public Sliders sliders;
+
     // health stuff here
-    
+
     static int maxHealth = 100;
     int health;
+
+    int dmgotTime;
+    int dmgotDamage;
 
     // stamina stuff here
 
@@ -89,13 +95,16 @@ public class Player : MonoBehaviour
         //player rotiert sich immer von der Kamera weg
         player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f);
 
-        // reserved for hp
-
+        // slider test
+        if (Input.GetKey(KeyCode.K))
+        {
+            sliders.SetHealth(45);
+        }
     }
 
     public void LateUpdate()
     {
-        // Camera hinter den Player (unsichtbares Objekt, dem die Boids folgen) setzen
+        // Camera hinter den Player setzen
         Vector3 dir = new Vector3(0, 0, -distance);
            Quaternion rotation = Quaternion.Euler(mouseY, mouseX, 0);
            camTransform.position = player.position + rotation * dir;
@@ -107,7 +116,7 @@ public class Player : MonoBehaviour
 
     public void FixedUpdate()
     {
-        //Movement
+        // Movement
         if (Input.GetKey(KeyCode.W))
         {
             //player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
@@ -139,8 +148,7 @@ public class Player : MonoBehaviour
             player.AddForce(0, -transform.forward.y * speed * 2, 0);
         }
 
-        //Dash :)
-
+        // Dash :)
         if (Input.GetKey(KeyCode.LeftShift) && canDash == true)
         {
             if (dash > 0)
@@ -167,9 +175,20 @@ public class Player : MonoBehaviour
             
         }
 
-
+        // Damage over time
+        if(dmgotTime > 0)
+        {
+            health = health - dmgotDamage;
+            dmgotTime--;
+        }
     }
 
+    void takeDmg(int damage)
+    {
+        health = health - damage;
+    }
+
+<<<<<<< HEAD
     IEnumerator Wait()
     {
         waitActive = true;
@@ -178,4 +197,6 @@ public class Player : MonoBehaviour
         canDash = true;
         waitActive = false;
     }
+=======
+>>>>>>> 06f0d7853649db31b18c251738bcb33ac8d084e5
 }
