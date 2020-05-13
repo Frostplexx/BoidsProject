@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -672,6 +672,7 @@ GameObject:
   - component: {fileID: 1458426478}
   - component: {fileID: 1458426477}
   - component: {fileID: 1458426480}
+  - component: {fileID: 1458426481}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -696,7 +697,7 @@ Camera:
   m_GameObject: {fileID: 1458426476}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -759,6 +760,24 @@ MonoBehaviour:
   sens: 1
   canDash: 1
   player: {fileID: 63444344}
+--- !u!114 &1458426481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458426476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420acabc9eb8d3a44ab13568469e0039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wobble: {fileID: 2100000, guid: d71fa1ab5a008b04098eb85872e264af, type: 2}
+  underwaterColor: {r: 0, g: 0.7420225, b: 1, a: 0}
+  Blend: 0
+  multiply: {fileID: 4800000, guid: 4616dba0fcbb2734895383d1cbbb9e5f, type: 3}
+  overlay: {fileID: 4800000, guid: 248bbca4a4b462c48ab8721daca64412, type: 3}
+  screen: {fileID: 4800000, guid: eee2cf16b7a970b4a9b8ed9d63ede4b8, type: 3}
 --- !u!1 &1650785519
 GameObject:
   m_ObjectHideFlags: 0
