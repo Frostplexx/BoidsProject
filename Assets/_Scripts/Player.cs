@@ -31,10 +31,13 @@ public class Player : MonoBehaviour
     Camera cam;
 
     public static int dashdur = 10; 
-    private int dash = dashdur; 
+    private int dash = dashdur;
+
+    // import sliders script functions
+    public Sliders sliders;
 
     // health stuff here
-    
+
     static int maxHealth = 100;
     int health;
 
@@ -83,8 +86,11 @@ public class Player : MonoBehaviour
         //player rotiert sich immer von der Kamera weg
         player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f);
 
-        // reserved for hp
-
+        // slider test
+        if (Input.GetKey(KeyCode.K))
+        {
+            sliders.SetHealth(45);
+        }
     }
 
     public void LateUpdate()
