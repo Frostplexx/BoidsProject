@@ -17,11 +17,21 @@ public class Player : MonoBehaviour
     private float distance = 40f;
 
     public static float speed = 10f;
+
+
+
     public static int dashMultiplier = 2;
-
     private float dashspeed = speed * dashMultiplier;
+    //dashdur ändern um die dash dauer zu verlängern
+    public static int dashdur = 100;
+    private int dash = dashdur;
 
-    public bool canDash = true; 
+    //cooldownTime ändern um den cooldown für den dash zu ändern
+    public float cooldownTime = 5f; 
+
+    public bool canDash = true;
+
+    private bool waitActive; 
 
     private float mouseX;
     private float mouseY;
@@ -30,8 +40,7 @@ public class Player : MonoBehaviour
     Transform camTransform;
     Camera cam;
 
-    public static int dashdur = 10; 
-    private int dash = dashdur;
+
 
     // health stuff here
     
@@ -134,7 +143,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && canDash == true)
         {
-            if (dash >= 0)
+            if (dash > 0)
             {
                 speed = dashspeed;
                 dash--;
@@ -142,21 +151,31 @@ public class Player : MonoBehaviour
             else
             {
                 speed = 10f;
+                StartCoroutine(Wait());
             }
 
 
         }
-        else if (dash < dashdur && !Input.GetKey(KeyCode.LeftShift))
+        else if (dash < dashdur && !Input.GetKey(KeyCode.LeftShift) && !waitActive)
         {
             canDash = false;
             speed = 10f;
-            dash = (int) Mathf.Floor(Time.time * 10) * 1;
-                dash++;
+            dash = dashdur;
         }
-        else if (dash == dashdur) {
+        else if (dash == dashdur && !waitActive) {
             canDash = true;
+            
         }
 
 
+    }
+
+    IEnumerator Wait()
+    {
+        waitActive = true;
+        canDash = false;
+        yield return new WaitForSeconds(cooldownTime);
+        canDash = true;
+        waitActive = false;
     }
 }
