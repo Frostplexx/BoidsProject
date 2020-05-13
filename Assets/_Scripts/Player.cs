@@ -33,8 +33,20 @@ public class Player : MonoBehaviour
     public static int dashdur = 10; 
     private int dash = dashdur;
 
-    int health = 100;
-    //health stuff here
+    // health stuff here
+    
+    static int maxHealth = 100;
+    int health;
+
+    // stamina stuff here
+
+    static int maxStamina = 100;
+    int stamina;
+
+    // hunger stuff here
+
+    static int maxHunger = 100;
+    int hunger;
 
     CharacterController characterController;
 
