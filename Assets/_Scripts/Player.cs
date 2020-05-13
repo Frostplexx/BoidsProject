@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -17,8 +18,6 @@ public class Player : MonoBehaviour
     private float distance = 40f;
 
     public static float speed = 10f;
-
-
 
     public static int dashMultiplier = 2;
     private float dashspeed = speed * dashMultiplier;
@@ -42,8 +41,13 @@ public class Player : MonoBehaviour
 
 
 
-    // import sliders script functions
-    public Sliders sliders;
+
+    // sliders
+
+
+    public UnityEngine.UI.Slider healthSlider;
+    public UnityEngine.UI.Slider staminaSlider;
+    public UnityEngine.UI.Slider hungerSlider;
 
     // health stuff here
 
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour
 
     int dmgotTime;
     int dmgotDamage;
+
 
     // stamina stuff here
 
@@ -69,12 +74,28 @@ public class Player : MonoBehaviour
 
     public DepthTextureMode depthTextureMode { get; internal set; }
 
+
+    Sliders sliders;
+
     public void Start()
     {
         // Damit der Cursor nicht sichtbar ist und sich nicht bewegt
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
+
+        // import sliders script functions
+        //sl = GameObject.FindObjectsOfTypeAll(Function).GetComponent<Sliders>();
+
+
+
+
+        SetStamina(100);
+        SetHealth(100);
+        SetHunger(100);
+
+
+
     }
 
     public void Update()
@@ -95,11 +116,7 @@ public class Player : MonoBehaviour
         //player rotiert sich immer von der Kamera weg
         player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f);
 
-        // slider test
-        if (Input.GetKey(KeyCode.K))
-        {
-            sliders.SetHealth(45);
-        }
+       
     }
 
     public void LateUpdate()
@@ -155,6 +172,7 @@ public class Player : MonoBehaviour
             {
                 speed = dashspeed;
                 dash--;
+                SetStamina(dash); 
             }
             else
             {
@@ -169,6 +187,7 @@ public class Player : MonoBehaviour
             canDash = false;
             speed = 10f;
             dash = dashdur;
+            SetStamina(dash);
         }
         else if (dash == dashdur && !waitActive) {
             canDash = true;
@@ -188,7 +207,7 @@ public class Player : MonoBehaviour
         health = health - damage;
     }
 
-<<<<<<< HEAD
+
     IEnumerator Wait()
     {
         waitActive = true;
@@ -197,6 +216,20 @@ public class Player : MonoBehaviour
         canDash = true;
         waitActive = false;
     }
-=======
->>>>>>> 06f0d7853649db31b18c251738bcb33ac8d084e5
+
+
+    public void SetHealth(int health)
+    {
+        healthSlider.value = health;
+    }
+
+    public void SetStamina(int stamina)
+    {
+        staminaSlider.value = stamina;
+    }
+
+    public void SetHunger(int hunger)
+    {
+        hungerSlider.value = hunger;
+    }
 }

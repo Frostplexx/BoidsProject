@@ -841,6 +841,7 @@ GameObject:
   - component: {fileID: 1458426477}
   - component: {fileID: 1458426480}
   - component: {fileID: 1458426481}
+  - component: {fileID: 1458426482}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -947,6 +948,21 @@ MonoBehaviour:
   multiply: {fileID: 4800000, guid: 4616dba0fcbb2734895383d1cbbb9e5f, type: 3}
   overlay: {fileID: 4800000, guid: 248bbca4a4b462c48ab8721daca64412, type: 3}
   screen: {fileID: 4800000, guid: eee2cf16b7a970b4a9b8ed9d63ede4b8, type: 3}
+--- !u!114 &1458426482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458426476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575cf979869265644a31e9e5448d7e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 774027279}
+  staminaSlider: {fileID: 1793308833}
+  hungerSlider: {fileID: 2114858537}
 --- !u!1 &1650785519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,7 +1446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 239.3, y: 102.7}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2101056496
