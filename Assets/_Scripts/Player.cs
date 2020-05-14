@@ -117,8 +117,9 @@ public class Player : MonoBehaviour
 
         //Update UI bars
         SetHealth(health);
-        //SetStamina(stamina);
+        SetStamina(stamina);
         SetHunger(hunger);
+        
        
     }
 
