@@ -77,8 +77,6 @@ public class Player : MonoBehaviour
     public DepthTextureMode depthTextureMode { get; internal set; }
 
 
-    Sliders sliders;
-
     public void Start()
     {
         // Damit der Cursor nicht sichtbar ist und sich nicht bewegt
@@ -178,7 +176,7 @@ public class Player : MonoBehaviour
             {
                 speed = dashspeed;
                 dash--;
-                SetStamina(dash);
+                stamina = dash; 
             }
             else
             {
@@ -193,7 +191,7 @@ public class Player : MonoBehaviour
             canDash = false;
             speed = 10f;
             dash = dashdur;
-            SetStamina(dash);
+            stamina = dash; 
         }
         else if (dash == dashdur && !waitActive) {
             canDash = true;
