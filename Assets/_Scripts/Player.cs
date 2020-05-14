@@ -54,9 +54,6 @@ public class Player : MonoBehaviour
     static int maxHealth = 100;
     int health;
 
-    int dmgotTime;
-    int dmgotDamage;
-
 
     // stamina stuff here
 
@@ -122,7 +119,7 @@ public class Player : MonoBehaviour
 
         //Update UI bars
         SetHealth(health);
-        SetStamina(stamina);
+        //SetStamina(stamina);
         SetHunger(hunger);
        
     }
@@ -222,12 +219,7 @@ public class Player : MonoBehaviour
             hungercounter++;
         }
 
-        // Damage over time
-        if(dmgotTime > 0)
-        {
-            health = health - dmgotDamage;
-            dmgotTime--;
-        }
+
     }
 
     void takeDmg(int damage)
