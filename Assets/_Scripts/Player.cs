@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     public static int dashMultiplier = 2;
     private float dashspeed = speed * dashMultiplier;
+    
     //dashdur ändern um die dash dauer zu verlängern
     public static int dashdur = 100;
     private int dash = dashdur;
@@ -44,7 +45,6 @@ public class Player : MonoBehaviour
 
     // sliders
 
-
     public UnityEngine.UI.Slider healthSlider;
     public UnityEngine.UI.Slider staminaSlider;
     public UnityEngine.UI.Slider hungerSlider;
@@ -63,10 +63,15 @@ public class Player : MonoBehaviour
     static int maxStamina = 100;
     int stamina;
 
+
     // hunger stuff here
 
     static int maxHunger = 100;
     int hunger;
+    int hungercounter;
+
+
+
 
     CharacterController characterController;
 
@@ -87,7 +92,9 @@ public class Player : MonoBehaviour
         // import sliders script functions
         //sl = GameObject.FindObjectsOfTypeAll(Function).GetComponent<Sliders>();
 
-
+        health = 100; 
+        stamina = 100;
+        hunger = 100;
 
 
         SetStamina(100);
@@ -137,7 +144,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             //player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
-            player.AddForce(player.transform.forward.x * speed, 0, player.transform.forward.z * speed); 
+            player.AddForce(player.transform.forward.x * speed, 0, player.transform.forward.z * speed);
         }
         if (Input.GetKey(KeyCode.S))
         {
@@ -163,7 +170,7 @@ public class Player : MonoBehaviour
         {
             //player.transform.Translate(0, -transform.forward.y * speed, 0);
             player.AddForce(0, -camTransform.transform.forward.y * speed * 2, 0);
-            player.AddRelativeTorque(new Vector3(0, 100, 0)); 
+            player.AddRelativeTorque(new Vector3(0, 100, 0));
         }
 
         // Dash :)
@@ -173,7 +180,7 @@ public class Player : MonoBehaviour
             {
                 speed = dashspeed;
                 dash--;
-                SetStamina(dash); 
+                SetStamina(dash);
             }
             else
             {
@@ -192,8 +199,19 @@ public class Player : MonoBehaviour
         }
         else if (dash == dashdur && !waitActive) {
             canDash = true;
-            
+
         }
+
+        // lose hunger
+        if (hungercounter => 25 && hunger > 0)
+        {
+            hunger--;
+            hungercounter = 0;
+        } else
+        {
+            hungercounter++;
+        }
+
 
         // Damage over time
         if(dmgotTime > 0)
