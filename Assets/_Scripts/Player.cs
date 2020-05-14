@@ -17,19 +17,12 @@ public class Player : MonoBehaviour
     public float sens = 1f; 
     private float distance = 40f;
 
-    public static float speed = 10f;
-
-    public static int dashMultiplier = 2;
-    private float dashspeed = speed * dashMultiplier;
-    
-    //dashdur ändern um die dash dauer zu verlängern
-    public static int dashdur = 100;
-    private int dash = dashdur;
+    public int standartSpeed = 10f;
+    public static int dashMultiplier = 20f;
+    private int dashSpeed = standartSpeed * dashMultiplier;
+    public int speed; 
 
     //cooldownTime ändern um den cooldown für den dash zu ändern
-    public float cooldownTime = 5f; 
-
-    public bool canDash = true;
 
     private bool waitActive; 
 
@@ -39,9 +32,6 @@ public class Player : MonoBehaviour
     public Rigidbody player;
     Transform camTransform;
     Camera cam;
-
-
-
 
     // sliders
 
@@ -54,12 +44,12 @@ public class Player : MonoBehaviour
     static int maxHealth = 100;
     int health;
 
-
     // stamina stuff here
 
     static int maxStamina = 100;
     int stamina;
-
+    int dashcooldown;
+    
 
     // hunger stuff here
 
@@ -170,33 +160,23 @@ public class Player : MonoBehaviour
             player.AddRelativeTorque(new Vector3(0, 100, 0));
         }
 
-        // Dash :)
-        if (Input.GetKey(KeyCode.LeftShift) && canDash == true)
+       // Dash
+       if(dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.Shift))
         {
-            if (dash > 0)
-            {
-                speed = dashspeed;
-                dash--;
-                stamina = dash; 
-            }
-            else
-            {
-                speed = 10f;
-                StartCoroutine(Wait());
-            }
+            speed = dashSpeed;
 
-
-        }
-        else if (dash < dashdur && !Input.GetKey(KeyCode.LeftShift) && !waitActive)
+        } else
         {
-            canDash = false;
-            speed = 10f;
-            dash = dashdur;
-            stamina = dash; 
-        }
-        else if (dash == dashdur && !waitActive) {
-            canDash = true;
+            speed = standartSpeed;
 
+            if(dashcooldown > 0)
+            {
+                dashcooldown--;
+            }
+        }
+        if (Input.GetKeyUp("Shift"))
+        {
+            dashcooldown = 250;
         }
 
         // Lose hunger, if not hunger lose health (2 values per second) 
