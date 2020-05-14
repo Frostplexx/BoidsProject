@@ -10,6 +10,7 @@ using UnityEngine.SocialPlatforms;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 using System;
+using System.Security.AccessControl;
 
 public class Player : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class Player : MonoBehaviour
     public float sens = 1f; 
     private float distance = 40f;
 
-    public int standartSpeed = 10f;
-    public static int dashMultiplier = 20f;
+    public static int standartSpeed = 10;
+    public static int dashMultiplier = 10;
     private int dashSpeed = standartSpeed * dashMultiplier;
     public int speed; 
 
@@ -161,7 +162,7 @@ public class Player : MonoBehaviour
         }
 
        // Dash
-       if(dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.Shift))
+       if(dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.LeftShift))
         {
             speed = dashSpeed;
 
@@ -174,7 +175,7 @@ public class Player : MonoBehaviour
                 dashcooldown--;
             }
         }
-        if (Input.GetKeyUp("Shift"))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             dashcooldown = 250;
         }
@@ -209,11 +210,12 @@ public class Player : MonoBehaviour
 
     IEnumerator Wait()
     {
-        waitActive = true;
-        canDash = false;
-        yield return new WaitForSeconds(cooldownTime);
-        canDash = true;
-        waitActive = false;
+        // waitActive = true;
+        //canDash = false;
+        //yield return new WaitForSeconds(cooldownTime);
+        //canDash = true;
+        //waitActive = false;
+        return null; 
     }
 
 
