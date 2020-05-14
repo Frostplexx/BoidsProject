@@ -96,12 +96,9 @@ public class Player : MonoBehaviour
         stamina = 100;
         hunger = 100;
 
-
         SetStamina(100);
         SetHealth(100);
         SetHunger(100);
-
-
 
     }
 
@@ -123,6 +120,10 @@ public class Player : MonoBehaviour
         //player rotiert sich immer von der Kamera weg
         player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f);
 
+        //Update UI bars
+        SetHealth(health);
+        SetStamina(stamina);
+        SetHunger(hunger);
        
     }
 
@@ -202,8 +203,8 @@ public class Player : MonoBehaviour
 
         }
 
-        // lose hunger
-        if (hungercounter => 25 && hunger > 0)
+        // Lose hunger, if not hunger lose health (2 values per second) 
+        if (hungercounter >= 25 && hunger > 0)
         {
             hunger--;
             hungercounter = 0;
@@ -212,6 +213,14 @@ public class Player : MonoBehaviour
             hungercounter++;
         }
 
+        if (hunger <= 0 && hungercounter >= 25)
+        {
+            health--;
+            hungercounter = 0;
+        } else
+        {
+            hungercounter++;
+        }
 
         // Damage over time
         if(dmgotTime > 0)
