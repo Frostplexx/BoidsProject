@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wobble
-  m_Shader: {fileID: 4800000, guid: 4616dba0fcbb2734895383d1cbbb9e5f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 248bbca4a4b462c48ab8721daca64412, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -33,4 +33,4 @@ Material:
     - _Speed: 0.5
     m_Colors:
     - <noninit>: {r: 0, g: 2.0183642, b: 1e-45, a: -1.6493598e+13}
-    - _Color: {r: 0, g: 0.7420225, b: 1, a: 0}
+    - _Color: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 0}

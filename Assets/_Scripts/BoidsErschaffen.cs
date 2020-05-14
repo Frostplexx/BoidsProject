@@ -12,7 +12,7 @@ public class BoidsErschaffen : MonoBehaviour
     //Spawnradius 
     public static int raumGroesse = 100;
     //Meinge an Boids
-    static int boidNummer = 10;
+    static int boidNummer = 500;
 
     static int haiNummer = 1;
 
