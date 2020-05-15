@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Packages.Rider.Editor;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TreeEditor;
 using UnityEngine;
 
@@ -10,9 +12,10 @@ public class BoidsErschaffen : MonoBehaviour
     //variable, die das Hai-Modell beinhaltet
     public GameObject hai;
     //Spawnradius 
-    public static int raumGroesse = 100;
+    public static int raumGroesse = 500;
     //Meinge an Boids
     static int boidNummer = 500;
+
 
     static int haiNummer = 1;
 
@@ -23,10 +26,10 @@ public class BoidsErschaffen : MonoBehaviour
 
     public int remBoids = 0;
 
-    public int addBoids = 0; 
+    public int addBoids = 0;
 
     //Ziel für die boids
-   
+
     public static Vector3 ziel = Vector3.zero; 
     void Start()
     {
@@ -34,13 +37,13 @@ public class BoidsErschaffen : MonoBehaviour
         for (int i = 0; i < boidNummer; i++) {
             alleBoids.Add(boid); 
             //boid wird zufällig innerhalb einer Kugel erschaffen
-            Vector3 pos = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
+            Vector3 pos = new Vector3(Random.Range(1, 5), Random.Range(100, 150), Random.Range(2, 5));
             alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity); 
         }
 		//ezeugrt vorgegebene menge an haien 
          for (int i = 0; i < haiNummer; i++) {
             //boid wird zufällig innerhalb einer Kugel erschaffen
-            Vector3 pos = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
+            Vector3 pos = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(20, 100), Random.Range(-raumGroesse, raumGroesse));
             alleHaie[i] = (GameObject)Instantiate(hai, pos, Quaternion.identity);
         }
     }
@@ -50,7 +53,7 @@ public class BoidsErschaffen : MonoBehaviour
     {
         if (Random.Range(0, 2000) < 50) {
 
-            ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse), Random.Range(-raumGroesse, raumGroesse));
+            ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(50, 100), Random.Range(-raumGroesse, raumGroesse));
 
 
         }

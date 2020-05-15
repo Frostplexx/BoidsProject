@@ -9,51 +9,70 @@ public class BoidKI : MonoBehaviour
     //geschwindigkeit um sich zu drehen
    float rotGeschw = 7.0f;
     //variable zur bestimmung der entferung welcher boid noch als nachar gilt
-     float boidDist = 20.0f;
+     float boidDist = 100f;
 	//minimale boid distanz 
-    float minDist = 3.0f;
+    float minDist = 03;
 
-    bool drehen = false; 
+    //ziel vektor aus boidsErschaffen geholt
+    Vector3 ziel = BoidsErschaffen.ziel;
+
+    bool drehen = false;
+
+    bool want = true;
 
     public Vector3 ausweichen; 
 
     private void OnTriggerEnter(Collider other){
-        if(!drehen){
-            ausweichen = this.transform.position - other.gameObject.transform.position; 
-        }
-        drehen = true; 
+       
+        ausweichen = this.transform.position - other.gameObject.transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ausweichen), 14f * Time.deltaTime);
+        ziel = this.transform.position - other.gameObject.transform.position;
+        want = false; 
+        
+        
     }
     private void OnTriggerExit(Collider other){
-        drehen = false; 
+     
+       ziel = BoidsErschaffen.ziel; 
+       want = true; 
     }
     void Update()
     {
-        if(drehen){
+        if (drehen)
+        {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ausweichen - transform.position), rotGeschw * Time.deltaTime);
-            geschwindigkeit = Random.Range(15f,30f);
-        } else {
-    
-
-        if(Vector3.Distance(transform.position, Vector3.zero) >= BoidsErschaffen.raumGroesse){
-            //neuer vektor = entgegengesetzte richtug und engegensetzte rotation und zufällige Geschwindigkeit
-            Vector3 richtung = Vector3.zero - transform.position; 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(richtung), rotGeschw * Time.deltaTime);
-            geschwindigkeit = Random.Range(15f,30f);
-
-        } else{ 
-            //ansonsten werden die regeln angewandt
-            //sie werden nur etwa 1 in 4 frames berechnet um die perfomance zu steigern
-            if(Random.Range(0,4) < 1){
-            Regeln();
-            }
-    
+            geschwindigkeit = Random.Range(15f, 30f);
         }
-          
-            
+        else
+        {
+
+
+            if (Vector3.Distance(transform.position, Vector3.zero) >= BoidsErschaffen.raumGroesse)
+            {
+                //neuer vektor = entgegengesetzte richtug und engegensetzte rotation und zufällige Geschwindigkeit
+                Vector3 richtung = Vector3.zero - transform.position;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(richtung), rotGeschw * Time.deltaTime);
+                geschwindigkeit = Random.Range(15f, 30f);
+
+            }
+            else 
+            {
+                //ansonsten werden die regeln angewandt
+                //sie werden nur etwa 1 in 4 frames berechnet um die perfomance zu steigern
+                if (Random.Range(0, 4) < 1)
+                {
+                    Regeln();
+                }
+
+            }
+
+
         }
         //boids bewegen sich forwärts; die geschwindigkeit errechnet sich aus einem Basiswert * geschwindigkeit
         transform.Translate(0, 0, Time.deltaTime * geschwindigkeit);
     }
+
+
 
 
     void Regeln()
@@ -65,15 +84,14 @@ public class BoidKI : MonoBehaviour
         List<GameObject> haiGruppe; 
         haiGruppe = BoidsErschaffen.alleHaie;
 
-        //MItte der Gruppe
+        //Mitte der Gruppe
         Vector3 gruppeMitte = Vector3.zero;
         //wektor um gruppe zu vermeiden
         Vector3 gruppeVermeiden = Vector3.zero;
         //geschwindigkeit der Gruppe 
         float gruppeGeschw = 0f;
 
-        //ziel vektor aus boidsErschaffen geholt
-        Vector3 ziel = BoidsErschaffen.ziel;
+
         //distantz variable
         float distanz;
         //groesse der Gruppe
@@ -103,7 +121,7 @@ public class BoidKI : MonoBehaviour
         //wenn in der Gruppe mehr als 0 mitglieder sind
         if (gruppeGroesse > 0)
         {
-
+            //+ (ziel - this.transform.position)
             gruppeMitte = gruppeMitte / gruppeGroesse + (ziel - this.transform.position);
 
 			geschwindigkeit = gruppeGeschw / gruppeGroesse;
@@ -112,7 +130,7 @@ public class BoidKI : MonoBehaviour
             if (richtung != Vector3.zero)
             {
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(richtung), rotGeschw * Time.deltaTime);
+              transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(richtung), rotGeschw * Time.deltaTime);
 
             }
 
