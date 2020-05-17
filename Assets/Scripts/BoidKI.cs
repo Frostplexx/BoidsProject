@@ -13,9 +13,11 @@ public class BoidKI : MonoBehaviour
 	//minimale boid distanz 
     float minDist = 3f;
 
-//    Rigidbody player = BoidsErschaffen.pl; 
-    //ziel vektor aus boidsErschaffen geholt
+   Rigidbody player = Player.pl; 
+   //ziel vektor aus boidsErschaffen geholt
     Vector3 ziel = BoidsErschaffen.ziel;
+
+    int raumGroesse = BoidsErschaffen.raumGroesse; 
 
     bool drehen = false;
 
@@ -132,27 +134,41 @@ public class BoidKI : MonoBehaviour
               transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(richtung), rotGeschw * Time.deltaTime);
 
             }
-            //Hai AI
-                //if(Random.Range(0, 5) < 1){
-             
-                //foreach(GameObject boid in boidGruppe){
+            //Hai AI           
 
-               //     if(Vector3.Distance(this.transform.position, player.position) <= 20f){
-  
-                 //   transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-(player.position - transform.position)), rotGeschw * Time.deltaTime);
+
+            if (Vector3.Distance(this.transform.position, player.transform.position) <= 50f)
+            {
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-(player.transform.position - transform.position)), rotGeschw * Time.deltaTime);
+                geschwindigkeit = 60f;
+            }
+            else {
+
+                geschwindigkeit = 30f; 
+            
+            }
+
+
+
+                    if (Vector3.Distance(this.transform.position, player.transform.position) <= 4f){
+
+                        Player.hunger = 100;
+                        BoidsErschaffen.remBoids = 1;  
                     
-                  //  }
-               //     if (Vector3.Distance(this.transform.position, player.position) <= 2f){
-
-                //        Player.hunger = 100;
-                 //       BoidsErschaffen.remBoids = 1;  
                     
-                    
-                    //}
+                    }
+                if (Vector3.Distance(ziel, player.transform.position) <= 150f) { 
+                
+                
+               ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(10, 100), Random.Range(-raumGroesse, raumGroesse));
 
-             //   }
 
-          //  }
+                }
+
+               
+
+           
 
         }
 
