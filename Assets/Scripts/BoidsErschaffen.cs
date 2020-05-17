@@ -16,8 +16,9 @@ public class BoidsErschaffen : MonoBehaviour
     //Meinge an Boids
     static int boidNummer = 500;
 
+    public Rigidbody player;
+    public static Rigidbody pl;
 
- 
     //Menge an boids als array
     public static List<GameObject> alleBoids = new List<GameObject>();
 
@@ -40,8 +41,9 @@ public class BoidsErschaffen : MonoBehaviour
             alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity); 
         }
 
-      //  pl = player;  
-         
+
+        pl = player; 
+
     }
 
     // Update is called once per frame

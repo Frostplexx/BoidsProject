@@ -40,23 +40,24 @@ public class Player : MonoBehaviour
     public UnityEngine.UI.Slider healthSlider;
     public UnityEngine.UI.Slider staminaSlider;
     public UnityEngine.UI.Slider hungerSlider;
+    public UnityEngine.UI.Slider dashCooldownSlider;
 
     // health stuff here
 
     static int maxHealth = 100;
-    int health;
+    int health = 100;
 
     // stamina stuff here
 
     static int maxStamina = 100;
-    int stamina;
+    int stamina = 100;
     int dashcooldown;
     
 
     // hunger stuff here
 
     static int maxHunger = 100;
-    public static int hunger;
+    public static int hunger = 100;
     int hungercounter;
 
 
@@ -76,18 +77,7 @@ public class Player : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
 
-        // import sliders script functions
-        //sl = GameObject.FindObjectsOfTypeAll(Function).GetComponent<Sliders>();
-
-        health = 100; 
-        stamina = 100;
-        hunger = 100;
-
-        SetStamina(100);
-        SetHealth(100);
-        SetHunger(100);
-
-        pl = player; 
+        //Update UI bars
 
     }
 
@@ -109,15 +99,15 @@ public class Player : MonoBehaviour
         //player rotiert sich immer von der Kamera weg
         player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
 
-
-
-
-        //Update UI bars
         SetHealth(health);
         SetStamina(stamina);
         SetHunger(hunger);
-        
-       
+
+
+        if (hunger > 100) {
+
+            hunger = 100; 
+        }
     }
 
     public void LateUpdate()
@@ -184,6 +174,11 @@ public class Player : MonoBehaviour
             if(dashcooldown > 0)
             {
                 dashcooldown--;
+                SetDashCooldown(dashcooldown);
+                if (stamina < 100)
+                {
+                    stamina++;
+                }
             }
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -226,6 +221,10 @@ public class Player : MonoBehaviour
     public void SetStamina(int stamina)
     {
         staminaSlider.value = stamina;
+    }
+    public void SetDashCooldown(int dashCooldown)
+    {
+        dashCooldownSlider.value = dashCooldown;
     }
 
     public void SetHunger(int hunger)

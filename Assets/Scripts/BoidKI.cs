@@ -13,7 +13,7 @@ public class BoidKI : MonoBehaviour
 	//minimale boid distanz 
     float minDist = 3f;
 
-   Rigidbody player = Player.pl; 
+    Rigidbody player; 
    //ziel vektor aus boidsErschaffen geholt
     Vector3 ziel = BoidsErschaffen.ziel;
 
@@ -72,10 +72,14 @@ public class BoidKI : MonoBehaviour
         }
         //boids bewegen sich forwärts; die geschwindigkeit errechnet sich aus einem Basiswert * geschwindigkeit
         transform.Translate(0, 0, Time.deltaTime * geschwindigkeit);
+
+       
     }
 
-
-
+    private void Start()
+    {
+        player = BoidsErschaffen.pl;
+    }
 
     void Regeln()
     {
@@ -135,8 +139,6 @@ public class BoidKI : MonoBehaviour
 
             }
             //Hai AI           
-
-
             if (Vector3.Distance(this.transform.position, player.transform.position) <= 50f)
             {
 
@@ -149,22 +151,20 @@ public class BoidKI : MonoBehaviour
             
             }
 
+            if (Vector3.Distance(this.transform.position, player.transform.position) <= 4f){
 
-
-                    if (Vector3.Distance(this.transform.position, player.transform.position) <= 4f){
-
-                        Player.hunger = 100;
+                        Player.hunger += Random.Range(10,20);
                         BoidsErschaffen.remBoids = 1;  
                     
-                    
-                    }
-                if (Vector3.Distance(ziel, player.transform.position) <= 150f) { 
+                  
+            }
+            if (Vector3.Distance(ziel, player.transform.position) <= 150f) { 
                 
                 
                ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(10, 100), Random.Range(-raumGroesse, raumGroesse));
 
 
-                }
+            }
 
                
 
