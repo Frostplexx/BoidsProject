@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     public static int standartSpeed = 10;
     public static int dashMultiplier = 10;
     private int dashSpeed = standartSpeed * dashMultiplier;
-    public int speed; 
+    public float speed; 
 
     //cooldownTime ändern um den cooldown für den dash zu ändern
 
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     // hunger stuff here
 
     static int maxHunger = 100;
-    int hunger;
+    public static int hunger;
     int hungercounter;
 
 
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         // Mausposition definieren und Y Achse bei fast 90 Grad sperren um eine Komplette Umdrehung der Y Achse zu verhindern
         mouseX += Input.GetAxis("Mouse X") * sens;
         mouseY += -Input.GetAxis("Mouse Y") * sens;
-        mouseY = Mathf.Clamp(mouseY, -89, 89);
+        mouseY = Mathf.Clamp(mouseY, -89.9f, 89.9f);
         
         // MouseScrollDelta ist scrollwheel. Aendert Distanz von Kamera zu player relativ zu scrollen. ScrollUP = naeher ScrollDOWN = weiter weg
         if(Input.mouseScrollDelta.y != 0){
@@ -101,10 +101,13 @@ public class Player : MonoBehaviour
         }
 
         // Locks Camera between 40 and 500
-        distance = Mathf.Clamp(distance, 40, 500);
+        distance = Mathf.Clamp(distance, 40, 100);
 
         //player rotiert sich immer von der Kamera weg
-        player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0.1f);
+        player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
+
+
+
 
         //Update UI bars
         SetHealth(health);
@@ -128,37 +131,41 @@ public class Player : MonoBehaviour
 
     public void FixedUpdate()
     {
+        
+    
+
         // Movement
         if (Input.GetKey(KeyCode.W))
         {
-            //player.transform.Translate(transform.forward.x * speed, 0, transform.forward.z * speed);
-            player.AddForce(player.transform.forward.x * speed, 0, player.transform.forward.z * speed);
+          
+            player.AddRelativeForce(0, 0, speed);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            //player.transform.Translate(-transform.forward.x * speed, 0, -transform.forward.z * speed);
-            player.AddForce(-player.transform.forward.x * speed, 0, -player.transform.forward.z * speed);
+            
+            player.AddRelativeForce(0, 0, -speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            //player.transform.Translate(-transform.forward.z * speed, 0, 0);
-            player.AddForce(-player.transform.forward.z * speed, 0, 0);
+            
+            player.AddRelativeForce(-speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            //player.transform.Translate(transform.forward.z * speed, 0, 0 );
-            player.AddForce(player.transform.forward.z * speed, 0, 0);
+            
+            player.AddRelativeForce(speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            //player.transform.Translate(0, transform.forward.y * speed, 0);
-            player.AddForce(0, camTransform.transform.forward.y * speed * 2, 0);
+
+            player.AddRelativeForce(0, -speed, 0);
+
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            //player.transform.Translate(0, -transform.forward.y * speed, 0);
-            player.AddForce(0, -camTransform.transform.forward.y * speed * 2, 0);
-            player.AddRelativeTorque(new Vector3(0, 100, 0));
+          player.AddRelativeForce(0, speed, 0);
+         
+
         }
 
        // Dash
@@ -206,18 +213,6 @@ public class Player : MonoBehaviour
     {
         health = health - damage;
     }
-
-
-    IEnumerator Wait()
-    {
-        // waitActive = true;
-        //canDash = false;
-        //yield return new WaitForSeconds(cooldownTime);
-        //canDash = true;
-        //waitActive = false;
-        return null; 
-    }
-
 
     public void SetHealth(int health)
     {

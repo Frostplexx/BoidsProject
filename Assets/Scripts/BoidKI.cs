@@ -9,10 +9,11 @@ public class BoidKI : MonoBehaviour
     //geschwindigkeit um sich zu drehen
    float rotGeschw = 7.0f;
     //variable zur bestimmung der entferung welcher boid noch als nachar gilt
-     float boidDist = 100f;
+     float boidDist = 30f;
 	//minimale boid distanz 
-    float minDist = 03;
+    float minDist = 3f;
 
+//    Rigidbody player = BoidsErschaffen.pl; 
     //ziel vektor aus boidsErschaffen geholt
     Vector3 ziel = BoidsErschaffen.ziel;
 
@@ -25,17 +26,16 @@ public class BoidKI : MonoBehaviour
     private void OnTriggerEnter(Collider other){
        
         ausweichen = this.transform.position - other.gameObject.transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ausweichen), 14f * Time.deltaTime);
-        ziel = this.transform.position - other.gameObject.transform.position;
-        want = false; 
-        
-        
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(ausweichen), 14f * Time.deltaTime);      
     }
     private void OnTriggerExit(Collider other){
      
        ziel = BoidsErschaffen.ziel; 
-       want = true; 
+       want = true;
+
     }
+
+
     void Update()
     {
         if (drehen)
@@ -59,7 +59,7 @@ public class BoidKI : MonoBehaviour
             {
                 //ansonsten werden die regeln angewandt
                 //sie werden nur etwa 1 in 4 frames berechnet um die perfomance zu steigern
-                if (Random.Range(0, 4) < 1)
+                if (Random.Range(0, 3) < 1)
                 {
                     Regeln();
                 }
@@ -123,7 +123,6 @@ public class BoidKI : MonoBehaviour
         {
             //+ (ziel - this.transform.position)
             gruppeMitte = gruppeMitte / gruppeGroesse + (ziel - this.transform.position);
-
 			geschwindigkeit = gruppeGeschw / gruppeGroesse;
 
             Vector3 richtung = (gruppeMitte + gruppeVermeiden) - transform.position;
@@ -133,26 +132,32 @@ public class BoidKI : MonoBehaviour
               transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(richtung), rotGeschw * Time.deltaTime);
 
             }
+            //Hai AI
+                //if(Random.Range(0, 5) < 1){
+             
+                //foreach(GameObject boid in boidGruppe){
 
-                if(Random.Range(0, 5) < 1){
-              foreach(GameObject hai in haiGruppe){
-
-                foreach(GameObject boid in boidGruppe){
-
-                    if(Vector3.Distance(this.transform.position, hai.transform.position) <= 20f){
+               //     if(Vector3.Distance(this.transform.position, player.position) <= 20f){
   
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-(hai.transform.position - transform.position)), rotGeschw * Time.deltaTime);
+                 //   transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-(player.position - transform.position)), rotGeschw * Time.deltaTime);
                     
-                    }
+                  //  }
+               //     if (Vector3.Distance(this.transform.position, player.position) <= 2f){
 
-                }
+                //        Player.hunger = 100;
+                 //       BoidsErschaffen.remBoids = 1;  
+                    
+                    
+                    //}
 
-            }
+             //   }
+
+          //  }
 
         }
 
 
-        }
+        
 
 
     }
