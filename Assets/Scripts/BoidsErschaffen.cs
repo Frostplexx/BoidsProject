@@ -16,8 +16,8 @@ public class BoidsErschaffen : MonoBehaviour
     //Meinge an Boids
     static int boidNummer = 500;
 
-//    public rigidbody player; 
-//    public static rigidbody pl; 
+
+ 
     //Menge an boids als array
     public static List<GameObject> alleBoids = new List<GameObject>();
 
@@ -50,7 +50,6 @@ public class BoidsErschaffen : MonoBehaviour
         if (Random.Range(0, 2000) < 50) {
 
             ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(10, 100), Random.Range(-raumGroesse, raumGroesse));
-         //   raumGroesse = Random.Range(50, 500); 
 
         }
 

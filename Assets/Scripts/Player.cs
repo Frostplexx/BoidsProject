@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private float mouseY;
 
     public Rigidbody player;
+    public static Rigidbody pl;
     Transform camTransform;
     Camera cam;
 
@@ -85,6 +86,8 @@ public class Player : MonoBehaviour
         SetStamina(100);
         SetHealth(100);
         SetHunger(100);
+
+        pl = player; 
 
     }
 
