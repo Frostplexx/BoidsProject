@@ -172,6 +172,7 @@ public class Player : MonoBehaviour
        if(dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.LeftShift))
         {
             speed = dashSpeed;
+            stamina--;
 
         } else
         {
