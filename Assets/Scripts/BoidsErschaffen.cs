@@ -1,8 +1,4 @@
-﻿using Packages.Rider.Editor;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using TreeEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BoidsErschaffen : MonoBehaviour
@@ -30,32 +26,34 @@ public class BoidsErschaffen : MonoBehaviour
 
     //Ziel für die boids
 
-    public static Vector3 ziel = Vector3.zero; 
+    public static Vector3 ziel = Vector3.zero;
     void Start()
     {
-    	//erzeugt vorgegebene menge an boids
-        for (int i = 0; i < boidNummer; i++) {
-            alleBoids.Add(boid); 
+        //erzeugt vorgegebene menge an boids
+        for (int i = 0; i < boidNummer; i++)
+        {
+            alleBoids.Add(boid);
             //boid wird zufällig innerhalb einer Kugel erschaffen
             Vector3 pos = new Vector3(Random.Range(1, 5), Random.Range(100, 150), Random.Range(2, 5));
-            alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity); 
+            alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity);
         }
 
 
-        pl = player; 
+        pl = player;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0, 2000) < 50) {
+        if (Random.Range(0, 2000) < 50)
+        {
 
             ziel = new Vector3(Random.Range(-raumGroesse, raumGroesse), Random.Range(10, 100), Random.Range(-raumGroesse, raumGroesse));
 
         }
 
-  
+
     }
 
     private void LateUpdate()
@@ -75,6 +73,6 @@ public class BoidsErschaffen : MonoBehaviour
             addBoids--;
 
         }
-    } 
+    }
 
 }

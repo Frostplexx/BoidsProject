@@ -1,31 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading;
-using TreeEditor;
-using UnityEditor;
-using UnityEditor.U2D.Sprites;
-using UnityEngine;
-using UnityEngine.SocialPlatforms;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UI;
-using System;
-using System.Security.AccessControl;
 
 public class Player : MonoBehaviour
 {
 
-    public float sens = 1f; 
+    public float sens = 1f;
     private float distance = 40f;
 
     public static int standartSpeed = 10;
     public static int dashMultiplier = 10;
     private int dashSpeed = standartSpeed * dashMultiplier;
-    public float speed; 
+    public float speed;
 
     //cooldownTime ändern um den cooldown für den dash zu ändern
 
-    private bool waitActive; 
+    private bool waitActive;
 
     private float mouseX;
     private float mouseY;
@@ -52,16 +41,13 @@ public class Player : MonoBehaviour
     static int maxStamina = 100;
     int stamina = 100;
     int dashcooldown;
-    
+
 
     // hunger stuff here
 
     static int maxHunger = 100;
     public static int hunger = 100;
     int hungercounter;
-
-
-
 
     CharacterController characterController;
 
@@ -87,9 +73,10 @@ public class Player : MonoBehaviour
         mouseX += Input.GetAxis("Mouse X") * sens;
         mouseY += -Input.GetAxis("Mouse Y") * sens;
         mouseY = Mathf.Clamp(mouseY, -89.9f, 89.9f);
-        
+
         // MouseScrollDelta ist scrollwheel. Aendert Distanz von Kamera zu player relativ zu scrollen. ScrollUP = naeher ScrollDOWN = weiter weg
-        if(Input.mouseScrollDelta.y != 0){
+        if (Input.mouseScrollDelta.y != 0)
+        {
             distance = distance - Input.mouseScrollDelta.y;
         }
 
@@ -97,16 +84,17 @@ public class Player : MonoBehaviour
         distance = Mathf.Clamp(distance, 40, 100);
 
         //player rotiert sich immer von der Kamera weg
-        player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
+        //player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
+
 
         SetHealth(health);
         SetStamina(stamina);
         SetHunger(hunger);
 
+        if (hunger > 100)
+        {
 
-        if (hunger > 100) {
-
-            hunger = 100; 
+            hunger = 100;
         }
     }
 
@@ -114,38 +102,52 @@ public class Player : MonoBehaviour
     {
         // Camera hinter den Player setzen
         Vector3 dir = new Vector3(0, 0, -distance);
-           Quaternion rotation = Quaternion.Euler(mouseY, mouseX, 0);
-           camTransform.position = player.position + rotation * dir;
+        Quaternion rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        camTransform.position = player.position + rotation * dir;
 
-           // Camera den Player anvisieren lassen
-           camTransform.LookAt(player.position);
+        camTransform.transform.LookAt(player.transform.position);
+
+
+        Vector3 targetDelta = player.position - camTransform.transform.position;
+
+        //get the angle between transform.forward and target delta
+        float angleDiff = Vector3.Angle(player.transform.forward, targetDelta);
+
+        // get its cross product, which is the axis of rotation to
+        // get from one vector to the other
+        Vector3 cross = Vector3.Cross(player.transform.forward, targetDelta);
+
+        // apply torque along that axis according to the magnitude of the angle.
+        player.AddTorque(cross * angleDiff * 1f);
 
     }
 
+
+    float up = 0f;
     public void FixedUpdate()
     {
-        
-    
+
+
 
         // Movement
         if (Input.GetKey(KeyCode.W))
         {
-          
+
             player.AddRelativeForce(0, 0, speed);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            
+
             player.AddRelativeForce(0, 0, -speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            
+
             player.AddRelativeForce(-speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            
+
             player.AddRelativeForce(speed, 0, 0);
         }
         if (Input.GetKey(KeyCode.LeftControl))
@@ -156,22 +158,21 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space))
         {
-          player.AddRelativeForce(0, speed, 0);
-         
-
+            player.AddRelativeForce(0, speed, 0);
         }
 
-       // Dash
-       if(dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.LeftShift))
+        // Dash
+        if (dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.LeftShift))
         {
             speed = dashSpeed;
             stamina--;
 
-        } else
+        }
+        else
         {
             speed = standartSpeed;
 
-            if(dashcooldown > 0)
+            if (dashcooldown > 0)
             {
                 dashcooldown--;
                 SetDashCooldown(dashcooldown);
@@ -191,7 +192,8 @@ public class Player : MonoBehaviour
         {
             hunger--;
             hungercounter = 0;
-        } else
+        }
+        else
         {
             hungercounter++;
         }
@@ -200,7 +202,8 @@ public class Player : MonoBehaviour
         {
             health--;
             hungercounter = 0;
-        } else
+        }
+        else
         {
             hungercounter++;
         }
@@ -210,7 +213,7 @@ public class Player : MonoBehaviour
 
     void takeDmg(int damage)
     {
-        health = health - damage;
+        health -= damage;
     }
 
     public void SetHealth(int health)

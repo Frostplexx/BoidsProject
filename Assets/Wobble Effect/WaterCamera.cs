@@ -51,15 +51,15 @@ namespace vnc.FX
             }
 
             float yAxis = transform.position.y;
-            
-                Wobble.SetColor("_Color", underwaterColor);
-                Graphics.Blit(source, destination, Wobble);
+
+            Wobble.SetColor("_Color", underwaterColor);
+            Graphics.Blit(source, destination, Wobble);
         }
     }
 
     public enum BlendMode
     {
-        Multiply, 
+        Multiply,
         Overlay,
         Screen
     }
