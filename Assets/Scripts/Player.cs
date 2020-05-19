@@ -84,7 +84,10 @@ public class Player : MonoBehaviour
         distance = Mathf.Clamp(distance, 40, 100);
 
         //player rotiert sich immer von der Kamera weg
-        //player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
+        }
 
 
         SetHealth(health);
@@ -108,17 +111,17 @@ public class Player : MonoBehaviour
         camTransform.transform.LookAt(player.transform.position);
 
 
-        Vector3 targetDelta = player.position - camTransform.transform.position;
+      //  Vector3 targetDelta = player.position - camTransform.transform.position;
 
         //get the angle between transform.forward and target delta
-        float angleDiff = Vector3.Angle(player.transform.forward, targetDelta);
+      //  float angleDiff = Vector3.Angle(player.transform.forward, targetDelta);
 
         // get its cross product, which is the axis of rotation to
         // get from one vector to the other
-        Vector3 cross = Vector3.Cross(player.transform.forward, targetDelta);
+    //   Vector3 cross = Vector3.Cross(player.transform.forward, targetDelta);
 
         // apply torque along that axis according to the magnitude of the angle.
-        player.AddTorque(cross * angleDiff * 1f);
+     //   player.AddTorque(cross * angleDiff * 1f);
 
     }
 
