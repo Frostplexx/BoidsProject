@@ -24,6 +24,14 @@ public class Player : MonoBehaviour
     Transform camTransform;
     Camera cam;
 
+    // random stuff here
+    public GameObject VolcanoDamage;
+
+    // Key stuff here
+    int keys = 0;
+    static int maxKeys = 5;
+    public string keyText; 
+
     // sliders
 
     public UnityEngine.UI.Slider healthSlider;
@@ -35,13 +43,16 @@ public class Player : MonoBehaviour
 
     static int maxHealth = 100;
     int health = 100;
+    int lastHealth;
+    int regenCounter; 
+    int dmgCounter; 
 
     // stamina stuff here
 
     static int maxStamina = 100;
-    int stamina = 100;
+    float stamina = 100f;
     int dashcooldown;
-
+   
 
     // hunger stuff here
 
@@ -62,8 +73,6 @@ public class Player : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
-
-        //Update UI bars
 
     }
 
@@ -99,6 +108,12 @@ public class Player : MonoBehaviour
 
             hunger = 100;
         }
+
+        // Set dashcooldown if 
+        if (Input.GetKeyUp(KeyCode.LeftShift) && !(dashcooldown > 0))
+        {
+            dashcooldown = 250;
+        }
     }
 
     public void LateUpdate()
@@ -129,7 +144,24 @@ public class Player : MonoBehaviour
     float up = 0f;
     public void FixedUpdate()
     {
+        // Health regen
+        if(health < lastHealth)
+        {
+            regenCounter = 100; 
+        }
+        
+        if (regenCounter > 0)
+        {
+            regenCounter--;
+        }
 
+        if(regenCounter == 0)
+        {
+            health++;
+        }
+
+        lastHealth = health; 
+        
 
 
         // Movement
@@ -179,19 +211,20 @@ public class Player : MonoBehaviour
             {
                 dashcooldown--;
                 SetDashCooldown(dashcooldown);
-                if (stamina < 100)
-                {
-                    stamina++;
-                }
+               
+            }
+            if (stamina < 100)
+            {
+                
+                stamina += 0.1f;
+
             }
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            dashcooldown = 250;
-        }
+        
+
 
         // Lose hunger, if not hunger lose health (2 values per second) 
-        if (hungercounter >= 25 && hunger > 0)
+        if (hungercounter >= 50 && hunger > 0)
         {
             hunger--;
             hungercounter = 0;
@@ -201,7 +234,7 @@ public class Player : MonoBehaviour
             hungercounter++;
         }
 
-        if (hunger <= 0 && hungercounter >= 25)
+        if (hunger <= 0 && hungercounter >= 50)
         {
             health--;
             hungercounter = 0;
@@ -211,7 +244,20 @@ public class Player : MonoBehaviour
             hungercounter++;
         }
 
+        // Volcano damage
+        if(Vector3.Distance(VolcanoDamage.transform.position, player.transform.position) <= 4f)
+        {
+            takeDmg(5);
+            dmgCounter = 50;
+        } else
+        {
+            if(dmgCounter > 0)
+            {
+                dmgCounter--;
+                takeDmg(1);
+            }
 
+        }
     }
 
     void takeDmg(int damage)
@@ -224,7 +270,7 @@ public class Player : MonoBehaviour
         healthSlider.value = health;
     }
 
-    public void SetStamina(int stamina)
+    public void SetStamina(float stamina)
     {
         staminaSlider.value = stamina;
     }
