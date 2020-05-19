@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
     Transform camTransform;
     Camera cam;
 
+    // random stuff here
+    public GameObject VolcanoDamage;
+
     // Key stuff here
     int keys = 0;
     static int maxKeys = 5;
@@ -40,6 +43,9 @@ public class Player : MonoBehaviour
 
     static int maxHealth = 100;
     int health = 100;
+    int lastHealth;
+    int regenCounter; 
+    int dmgCounter; 
 
     // stamina stuff here
 
@@ -67,8 +73,6 @@ public class Player : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
-
-        //Update UI bars
 
     }
 
@@ -140,7 +144,24 @@ public class Player : MonoBehaviour
     float up = 0f;
     public void FixedUpdate()
     {
+        // Health regen
+        if(health < lastHealth)
+        {
+            regenCounter = 100; 
+        }
+        
+        if (regenCounter > 0)
+        {
+            regenCounter--;
+        }
 
+        if(regenCounter == 0)
+        {
+            health++;
+        }
+
+        lastHealth = health; 
+        
 
 
         // Movement
@@ -223,7 +244,20 @@ public class Player : MonoBehaviour
             hungercounter++;
         }
 
+        // Volcano damage
+        if(Vector3.Distance(VolcanoDamage.transform.position, player.transform.position) <= 4f)
+        {
+            takeDmg(5);
+            dmgCounter = 50;
+        } else
+        {
+            if(dmgCounter > 0)
+            {
+                dmgCounter--;
+                takeDmg(1);
+            }
 
+        }
     }
 
     void takeDmg(int damage)
