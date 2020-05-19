@@ -1,4 +1,7 @@
 using UnityEditor;
+using UnityEngine;
+using System.IO;
+using System;
 
 namespace GitHub.Unity
 {
@@ -8,8 +11,7 @@ namespace GitHub.Unity
         static UnityAPIWrapper()
         {
 #if UNITY_2018_2_OR_NEWER
-            Editor.finishedDefaultHeaderGUI += editor =>
-            {
+            Editor.finishedDefaultHeaderGUI += editor => {
                 UnityShim.Raise_Editor_finishedDefaultHeaderGUI(editor);
             };
 #endif
