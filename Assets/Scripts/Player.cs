@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
     // health stuff here
 
     static int maxHealth = 100;
-    int health = 100;
-    int lastHealth;
+    float health = 100f;
+    float lastHealth;
     int regenCounter; 
     int dmgCounter; 
 
@@ -57,8 +57,7 @@ public class Player : MonoBehaviour
     // hunger stuff here
 
     static int maxHunger = 100;
-    public static int hunger = 100;
-    int hungercounter;
+    public static float hunger = 100f;
 
     CharacterController characterController;
 
@@ -223,25 +222,13 @@ public class Player : MonoBehaviour
         
 
 
-        // Lose hunger, if not hunger lose health (2 values per second) 
-        if (hungercounter >= 50 && hunger > 0)
+        // Lose hunger, if not hunger lose health
+        if(hunger > 0)
         {
-            hunger--;
-            hungercounter = 0;
-        }
-        else
+            hunger -= 0.1f;
+        } else
         {
-            hungercounter++;
-        }
-
-        if (hunger <= 0 && hungercounter >= 50)
-        {
-            health--;
-            hungercounter = 0;
-        }
-        else
-        {
-            hungercounter++;
+            health -= 0.1f;
         }
 
         // Volcano damage
@@ -265,7 +252,7 @@ public class Player : MonoBehaviour
         health -= damage;
     }
 
-    public void SetHealth(int health)
+    public void SetHealth(float health)
     {
         healthSlider.value = health;
     }
@@ -279,7 +266,7 @@ public class Player : MonoBehaviour
         dashCooldownSlider.value = dashCooldown;
     }
 
-    public void SetHunger(int hunger)
+    public void SetHunger(float hunger)
     {
         hungerSlider.value = hunger;
     }
