@@ -35,7 +35,7 @@ public class BoidsErschaffen : MonoBehaviour
             alleBoids.Add(boid);
             //boid wird zufällig innerhalb einer Kugel erschaffen
             Vector3 pos = new Vector3(Random.Range(1, 5), Random.Range(100, 150), Random.Range(2, 5));
-            alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity);
+            alleBoids[i] = (GameObject)Instantiate(boid, pos, Quaternion.identity) ;
         }
 
 
