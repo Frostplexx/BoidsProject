@@ -6,44 +6,51 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool paused;
-    public GameObject pauseUI;
+    public bool paused = false;
+    public GameObject pauseMenu;
+    public bool wait = false;
 
-    void Update()
+    private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            if (paused)
+            if (paused == false && wait == false)
             {
                 Pause();
+                Wait(); 
             }
             else
             {
                 Unpause();
+                Wait();
             }
         }
-        
+
     }
 
-    void Unpause()
+    public  void Unpause()
     {
-        pauseUI.SetActive(false);
-        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
         Debug.Log("unpaused");
-        paused = false;
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        paused = false; 
     }
 
-    void Pause()
+    public void Pause()
     {
-        pauseUI.SetActive(true);
-        Time.timeScale = 0f;
+        pauseMenu.SetActive(true);
         Debug.Log("paused");
+        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
         paused = true;
     }
 
-    void goToMenu()
+    IEnumerator Wait()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        wait = true;
+        //yield on a new YieldInstruction that waits for 2 seconds.
+        yield return new WaitForSeconds(2);
+        wait = false;  
     }
 }

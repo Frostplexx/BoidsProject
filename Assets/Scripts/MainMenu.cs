@@ -17,4 +17,14 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

@@ -14,12 +14,10 @@ public class Player : MonoBehaviour
     public float speed;
 
     // Death Stuff here
-    public bool dead;
     public GameObject deathUI;
 
     //cooldownTime ändern um den cooldown für den dash zu ändern
 
-    private bool waitActive;
 
     private float mouseX;
     private float mouseY;
@@ -27,14 +25,12 @@ public class Player : MonoBehaviour
     public Rigidbody player;
     public static Rigidbody pl;
     Transform camTransform;
-    Camera cam;
 
-    // random stuff here
+
 
 
     // Key stuff here
-    int keys = 0;
-    static int maxKeys = 5;
+
     public string keyText; 
 
     // sliders
@@ -46,27 +42,20 @@ public class Player : MonoBehaviour
 
     // health stuff here
 
-    static int maxHealth = 100;
-    public static float health = 100f;
+
+    public float health = 100f;
     float lastHealth;
     int regenCounter; 
-    int dmgCounter; 
 
     // stamina stuff here
 
-    static int maxStamina = 100;
     float stamina = 100f;
     int dashcooldown;
    
 
     // hunger stuff here
 
-    static int maxHunger = 100;
     public static float hunger = 100f;
-
-    CharacterController characterController;
-
-    private Vector3 moveDirection = Vector3.zero;
 
     public DepthTextureMode depthTextureMode { get; internal set; }
 
@@ -74,6 +63,7 @@ public class Player : MonoBehaviour
     public void Start()
     {
         // Damit der Cursor nicht sichtbar ist und sich nicht bewegt
+        Time.timeScale = 1;
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
@@ -100,11 +90,10 @@ public class Player : MonoBehaviour
         distance = Mathf.Clamp(distance, 40, 100);
 
         //player rotiert sich immer von der Kamera weg
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
         }
-
 
         SetHealth(health);
         SetStamina(stamina);
@@ -125,14 +114,11 @@ public class Player : MonoBehaviour
         // Die! :)
         if(health <= 0)
         {
-            dead = true;
-        } else
-        {
-            dead = false;
-        }
-        if (dead)
-        {
-            die();
+        //    Time.timeScale = 0;
+        //    UnityEngine.Cursor.visible = true;
+        //    UnityEngine.Cursor.lockState = CursorLockMode.None;
+        //    deathUI.SetActive(true);
+
         }
     }
 
@@ -160,8 +146,6 @@ public class Player : MonoBehaviour
 
     }
 
-
-    float up = 0f;
     public void FixedUpdate()
     {
         // Health regen
@@ -175,10 +159,6 @@ public class Player : MonoBehaviour
             regenCounter--;
         }
 
-        if(regenCounter == 0)
-        {
-            health++;
-        }
 
         lastHealth = health; 
         
@@ -219,8 +199,10 @@ public class Player : MonoBehaviour
         // Dash
         if (dashcooldown <= 0 && stamina > 0 && Input.GetKey(KeyCode.LeftShift))
         {
+            player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, transform.forward.y, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
             speed = dashSpeed;
             stamina--;
+            
 
         }
         else
@@ -246,10 +228,14 @@ public class Player : MonoBehaviour
         // Lose hunger, if not hunger lose health
         if(hunger > 0)
         {
-            hunger -= 0.1f;
-        } else
+            hunger -= 0.05f;
+            if (health < 100) {
+
+                health += 0.5f; 
+            }
+        } else if ( hunger <= 0)
         {
-            health -= 1f;
+            health -= 0.1f; 
         }
 
        
@@ -257,7 +243,7 @@ public class Player : MonoBehaviour
 
     public static void takeDmg(float damage)
     {
-        health -= damage;
+        damage = damage;
     }
 
     public void SetHealth(float health)
@@ -279,19 +265,12 @@ public class Player : MonoBehaviour
         hungerSlider.value = hunger;
     }
 
-    // Death function
-    public void die()
-    {
-        deathUI.SetActive(true);
-    }
-
+ 
     public void MenuButton()
     {
         SceneManager.LoadScene("MainMenu");
     }
+ 
 
-    public void RetryButton()
-    {
-        SceneManager.LoadScene("MainScene");
-    }
+   
 }
