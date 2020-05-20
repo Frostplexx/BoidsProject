@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Player : MonoBehaviour
     public static int dashMultiplier = 10;
     private int dashSpeed = standartSpeed * dashMultiplier;
     public float speed;
+
+    // Death Stuff here
+    public bool dead;
+    public GameObject deathUI;
 
     //cooldownTime ändern um den cooldown für den dash zu ändern
 
@@ -73,6 +78,9 @@ public class Player : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         camTransform = transform;
 
+        // You know what this does
+        deathUI.SetActive(false);
+
     }
 
     public void Update()
@@ -112,6 +120,19 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift) && !(dashcooldown > 0))
         {
             dashcooldown = 250;
+        }
+
+        // Die! :)
+        if(health <= 0)
+        {
+            dead = true;
+        } else
+        {
+            dead = false;
+        }
+        if (dead)
+        {
+            die();
         }
     }
 
@@ -228,7 +249,7 @@ public class Player : MonoBehaviour
             hunger -= 0.1f;
         } else
         {
-            health -= 0.1f;
+            health -= 1f;
         }
 
         // Volcano damage
@@ -269,5 +290,21 @@ public class Player : MonoBehaviour
     public void SetHunger(float hunger)
     {
         hungerSlider.value = hunger;
+    }
+
+    // Death function
+    public void die()
+    {
+        deathUI.SetActive(true);
+    }
+
+    public void MenuButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RetryButton()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
