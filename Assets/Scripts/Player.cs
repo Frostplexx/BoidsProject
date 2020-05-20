@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     Camera cam;
 
     // random stuff here
-    public GameObject VolcanoDamage;
+
 
     // Key stuff here
     int keys = 0;
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     // health stuff here
 
     static int maxHealth = 100;
-    float health = 100f;
+    public static float health = 100f;
     float lastHealth;
     int regenCounter; 
     int dmgCounter; 
@@ -231,23 +231,10 @@ public class Player : MonoBehaviour
             health -= 0.1f;
         }
 
-        // Volcano damage
-        if(Vector3.Distance(VolcanoDamage.transform.position, player.transform.position) <= 4f)
-        {
-            takeDmg(5);
-            dmgCounter = 50;
-        } else
-        {
-            if(dmgCounter > 0)
-            {
-                dmgCounter--;
-                takeDmg(1);
-            }
-
-        }
+       
     }
 
-    void takeDmg(int damage)
+    public static void takeDmg(float damage)
     {
         health -= damage;
     }
