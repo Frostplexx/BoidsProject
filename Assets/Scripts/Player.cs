@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
         //player rotiert sich immer von der Kamera weg
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
+            player.angularVelocity = Vector3.zero; 
             player.transform.rotation = Quaternion.Slerp(Quaternion.LookRotation(new Vector3(transform.forward.x, 0, transform.forward.z)), Quaternion.LookRotation(Vector3.zero), 0);
         }
 
@@ -219,7 +220,7 @@ public class Player : MonoBehaviour
             if (stamina < 100)
             {
                 
-                stamina += 0.1f;
+                stamina += 0.15f;
 
             }
         }
@@ -229,7 +230,7 @@ public class Player : MonoBehaviour
         // Lose hunger, if not hunger lose health
         if(hunger > 0)
         {
-            hunger -= 0.05f;
+            hunger -= 0.02f;
             if (health < 100) {
 
                 health += 0.5f; 

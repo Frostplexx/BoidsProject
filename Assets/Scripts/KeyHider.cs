@@ -11,13 +11,11 @@ public class KeyHider : MonoBehaviour
 
     public GameObject[] hide;
 
-    Rigidbody player;
+    public Rigidbody player;
 
     int j = 0; 
     void Start()
     {
-
-        player = BoidsErschaffen.pl; 
         //erzeugt vorgegebene menge an boids
         for (int i = 0; i < 5; i++)
         {
@@ -51,15 +49,17 @@ public class KeyHider : MonoBehaviour
 
         foreach (GameObject key in alleKeys)
         {
-            if (Vector3.Distance(key.transform.position, player.transform.position) <= 4f)
+            if (Vector3.Distance(key.transform.position, player.transform.position) <= 8f)
             {
                 KeyHider.Destroy(alleKeys[alleKeys.IndexOf(key)]);
                 alleKeys.RemoveAt(alleKeys.IndexOf(key));
-
+                Score.scoreVal++;
 
 
             }
         }
+
+        
 
 
     }
