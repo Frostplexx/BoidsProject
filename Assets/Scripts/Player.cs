@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
 
         // You know what this does
         deathUI.SetActive(false);
+        pl = player; 
 
     }
 
